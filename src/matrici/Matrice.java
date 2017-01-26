@@ -5,6 +5,11 @@
 
 package matrici;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Sandro Gallo
@@ -15,7 +20,7 @@ public class Matrice {
     
     // costruttore uno
     public Matrice(int x, int y) {
-        // da completare
+        theMatrix = new int[x][y];
     }
     
     // costruttore due
@@ -33,11 +38,25 @@ public class Matrice {
 
     @Override
     public String toString() {
-        return "Matrice{" + "theMatrix=" + theMatrix + '}';
+        String s = "";
+        for (int i = 0; i < theMatrix.length; i++) {
+            for (int j = 0; j < theMatrix[i].length; j++) {
+                s += theMatrix[i][j];
+                if (j<theMatrix[i].length-1) s += ";";
+            }
+            s += "\n";
+        }
+        return s;
     }
 
     public void toFile( String filename ) {
-        // da completare
+        try {
+            FileWriter fw = new FileWriter(filename);
+            fw.write(this.toString());
+            fw.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Matrice.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void fromFile( String filename ) {
